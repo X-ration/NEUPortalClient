@@ -23,7 +23,10 @@ public class ConnectionManager {
         this.formParas = formParas;
     }
 
-    public void commitRequest(){
+    public String commitRequest(){
+
+        String sCurrentLine;
+        String sTotalString = "";
 
         try {
 
@@ -38,10 +41,7 @@ public class ConnectionManager {
             out.flush();
             out.close();
             // 一旦发送成功，用以下方法就可以得到服务器的回应：
-            String sCurrentLine;
-            String sTotalString;
-            sCurrentLine = "";
-            sTotalString = "";
+
             InputStream l_urlStream;
             l_urlStream = connection.getInputStream();
             // 传说中的三层包装阿！
@@ -51,14 +51,12 @@ public class ConnectionManager {
                 sTotalString += sCurrentLine + "\r\n";
 
             }
-            System.out.println(sTotalString);
         }
         catch (IOException e){
             e.printStackTrace();
+            sTotalString = "Error";
         }
+        return sTotalString;
     }
 
-    public static void main(String[] args) throws IOException {
-
-    }
 }
